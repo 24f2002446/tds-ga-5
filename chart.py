@@ -1,5 +1,5 @@
 # chart.py
-# Generates a professional Seaborn barplot (512x512 PNG)
+# Generates a professional Seaborn barplot (exact 512x512 PNG)
 # Author: 24f2002446@ds.study.iitm.ac.in
 
 import seaborn as sns
@@ -14,59 +14,59 @@ np.random.seed(42)
 
 products = ["Alpha", "Beta", "Gamma", "Delta", "Epsilon"]
 sales = np.random.randint(80, 180, size=len(products))
-growth_rate = np.random.uniform(2.0, 12.0, size=len(products))
 
 df = pd.DataFrame({
     "Product": products,
-    "Quarterly Sales (k units)": sales,
-    "Growth (%)": growth_rate
+    "Sales": sales
 })
 
 # ---------------------------
 # Seaborn styling
 # ---------------------------
 sns.set_style("whitegrid")
-sns.set_context("talk")  # professional presentation scale
+sns.set_context("talk")
 
 # ---------------------------
-# Create 512 × 512 px figure
-# figsize=(8,8) with dpi=64 → 512px
+# Create EXACT 512×512 canvas
+# figsize(8,8) with dpi=64 → 512 px
 # ---------------------------
-plt.figure(figsize=(8, 8), dpi=64)
+fig = plt.figure(figsize=(8, 8), dpi=64)
 
 # ---------------------------
 # Barplot
 # ---------------------------
-sns.barplot(
+ax = sns.barplot(
     data=df,
     x="Product",
-    y="Quarterly Sales (k units)",
+    y="Sales",
     palette="Blues_d",
     edgecolor="black"
 )
 
-# ---------------------------
-# Professional labels & title
-# ---------------------------
-plt.title("Quarterly Product Performance — Sales Overview", fontsize=18, pad=15)
-plt.xlabel("Product Line", fontsize=14)
-plt.ylabel("Sales (in thousands of units)", fontsize=14)
+# Title & labels
+ax.set_title("Quarterly Product Sales", fontsize=18, pad=12)
+ax.set_xlabel("Product", fontsize=14)
+ax.set_ylabel("Sales (units)", fontsize=14)
 
-# Annotate bars with values
-for index, value in enumerate(df["Quarterly Sales (k units)"]):
-    plt.text(
-        index,
-        value + 2,
-        f"{value}",
-        ha="center",
-        fontsize=12
-    )
+# Annotate values
+for i, val in enumerate(df["Sales"]):
+    ax.text(i, val + 2, str(val), ha="center", fontsize=12)
 
 # ---------------------------
-# Save Export — EXACT 512x512
+# Force exact size (NO trimming)
 # ---------------------------
-plt.tight_layout()
-plt.savefig("chart.png", dpi=64, bbox_inches="tight")
+plt.subplots_adjust(
+    left=0.12,
+    right=0.95,
+    top=0.90,
+    bottom=0.12
+)
+
+# ---------------------------
+# Save EXACT 512x512
+# ---------------------------
+fig.savefig("chart.png", dpi=64)  # NO bbox_inches!
+
 plt.close()
 
-print("chart.png generated successfully (512x512 px)")
+print("chart.png generated — EXACT 512×512 pixels")
