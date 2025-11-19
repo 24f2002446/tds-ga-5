@@ -55,12 +55,12 @@ section h2 {
 
 This presentation demonstrates:
 
-- Custom Marp theme  
-- Page numbering  
-- Background image slides  
-- **Mathematical equations (LaTeX)**  
-- Custom styling blocks  
-- Multi-format export compatibility  
+-   Custom Marp theme
+-   Page numbering
+-   Background image slides
+-   **Mathematical equations (LaTeX)**
+-   Custom styling blocks
+-   Multi-format export compatibility
 
 ---
 
@@ -70,10 +70,10 @@ This presentation demonstrates:
 
 **Why Marp?**
 
-- Markdown-first documentation  
-- Easy versioning with Git  
-- Export to PDF, HTML, PPTX  
-- Includes math, diagrams, themes  
+-   Markdown-first documentation
+-   Easy versioning with Git
+-   Export to PDF, HTML, PPTX
+-   Includes math, diagrams, themes
 
 </div>
 
@@ -85,24 +85,27 @@ This presentation demonstrates:
 
 ---
 
-# Algorithmic Complexity
+# Algorithmic Complexity (KaTeX)
 
-Block substitution example:
+Inline example:  
+The runtime is \( O(n \log n) \).
 
-$$T(n) = T(n-1) + O(1) \Rightarrow T(n) = O(n)$$
+Block examples:
 
-Master theorem form:
+$$T(n) = T(n-1) + O(1) = O(n)$$
+
+Master theorem:
 
 $$T(n) = aT\left(\frac{n}{b}\right) + f(n)$$
 
-General cases:
+Case breakdown:
 
 $$
 T(n)=
 \begin{cases}
-O(n^{\log_b a}) & \text{if } f(n) < n^{\log_b a} \\
-O(n^{\log_b a}\log n) & \text{if } f(n) = n^{\log_b a} \\
-O(f(n)) & \text{if } f(n) > n^{\log_b a}
+O(n^{\log_b a}) & f(n) < n^{\log_b a} \\
+O(n^{\log_b a} \log n) & f(n) = n^{\log_b a} \\
+O(f(n)) & f(n) > n^{\log_b a}
 \end{cases}
 $$
 
