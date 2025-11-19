@@ -4,9 +4,8 @@ theme: custom-theme
 paginate: true
 header: "Product Documentation — v1.0"
 footer: "© 2025 Software Division"
+math: katex
 ---
-
-<!-- _theme: custom-theme -->
 
 <style>
 section {
@@ -25,8 +24,6 @@ h1 {
 }
 </style>
 
-<!-- THEME DEFINITION -->
-<!-- Place this at the bottom of the file when exporting with Marp -->
 <style>
 @charset "UTF-8";
 @import "https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap";
@@ -58,12 +55,12 @@ section h2 {
 
 This presentation demonstrates:
 
--   Custom Marp theme
--   Page numbering
--   Background image slides
--   Mathematical equations
--   Custom styling blocks
--   Compatibility with version control and multi-format exports
+- Custom Marp theme  
+- Page numbering  
+- Background image slides  
+- **Mathematical equations (LaTeX)**  
+- Custom styling blocks  
+- Multi-format export compatibility  
 
 ---
 
@@ -73,55 +70,41 @@ This presentation demonstrates:
 
 **Why Marp?**
 
--   Markdown-first documentation
--   Easy versioning with Git
--   Export to PDF, HTML, PPTX
--   Supports diagrams, math, and themes
+- Markdown-first documentation  
+- Easy versioning with Git  
+- Export to PDF, HTML, PPTX  
+- Includes math, diagrams, themes  
 
 </div>
 
 ---
 
-<!-- background image slide -->
-
 ![bg](https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&w=1400&q=80)
 
 # Background Image Slide
-
-This slide demonstrates Marp’s directive-based **background image** support.
 
 ---
 
 # Algorithmic Complexity
 
-For documentation involving algorithms, include math:
+Block substitution example:
 
-\[
-T(n) = T(n-1) + O(1)
-\]
+$$T(n) = T(n-1) + O(1) \Rightarrow T(n) = O(n)$$
 
-Solving the recurrence:
+Master theorem form:
 
-\[
-T(n) = O(n)
-\]
+$$T(n) = aT\left(\frac{n}{b}\right) + f(n)$$
 
-Another common complexity formula:
+General cases:
 
-\[
-T(n) = aT\left(\frac{n}{b}\right) + f(n)
-\]
-
-By the **Master Theorem**:
-
-\[
-T(n) =
+$$
+T(n)=
 \begin{cases}
 O(n^{\log_b a}) & \text{if } f(n) < n^{\log_b a} \\
 O(n^{\log_b a}\log n) & \text{if } f(n) = n^{\log_b a} \\
 O(f(n)) & \text{if } f(n) > n^{\log_b a}
 \end{cases}
-\]
+$$
 
 ---
 
