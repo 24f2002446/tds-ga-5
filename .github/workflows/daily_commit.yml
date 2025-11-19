@@ -1,19 +1,56 @@
-name: Deploy RevealJS to GitHub Pages
+name: Deploy RevealJS Presentation to GitHub Pages
 
 on:
     push:
-        branches: [main]
+        branches: ["main"]
+    workflow_dispatch:
+
+permissions:
+    contents: read
+    pages: write
+    id-token: write
 
 jobs:
-    deploy:
+    build:
         runs-on: ubuntu-latest
+
         steps:
-            - uses: actions/checkout@v4
-            - name: Setup Pages
-              uses: actions/configure-pages@v3
-            - name: Upload artifact
-              uses: actions/upload-pages-artifact@v4
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+
+            - name: Install dependencies (if package.json exists)
+              run: |
+                  if [ -f package.json ]; then
+                    npm install
+                  else
+                    echo "No package.json found"
+                  fi
+
+            - name: Build presentation (optional)
+              run: |
+                  if npm run | grep -q "build"; then
+                    npm run build
+                  else
+                    echo "No build script found, deploying static files."
+                  fi
+
+            - name: Upload artifact for GitHub Pages
+              uses: actions/upload-pages-artifact@v3
               with:
                   path: ./
+
+    deploy:
+        needs: build
+        runs-on: ubuntu-latest
+        permissions:
+            pages: write
+            id-token: write
+
+        steps:
             - name: Deploy to GitHub Pages
-              uses: actions/deploy-pages@v1
+              uses: actions/deploy-pages@v4
