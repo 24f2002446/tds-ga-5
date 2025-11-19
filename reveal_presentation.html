@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Quarterly Earnings — Reveal.js Presentation</title>
+
+        <!-- Reveal.js from CDN -->
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/reveal.js@4.5.0/dist/reveal.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/reveal.js@4.5.0/dist/theme/black.css"
+            id="theme"
+        />
+        <!-- Highlight.js for code highlighting -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css"
+        />
+        <style>
+            /* Minor styling tweaks */
+            .email {
+                font-size: 0.9rem;
+                opacity: 0.85;
+            }
+            .small-note {
+                font-size: 0.9rem;
+                color: #ddd;
+            }
+            pre code.hljs {
+                max-height: 45vh;
+                overflow: auto;
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <!-- Title slide -->
+                <section>
+                    <h1>Q3 Quarterly Earnings — Interactive Walkthrough</h1>
+                    <h3>Technical Consulting — Financial Systems</h3>
+                    <p class="email">Contact: 24f2002446@ds.study.iitm.ac.in</p>
+                    <aside class="notes">
+                        Introduce yourself, state the goal: present key KPIs and
+                        explain model assumptions.
+                    </aside>
+                </section>
+
+                <!-- Markdown slide (uses markdown plugin) -->
+                <section data-markdown>
+                    <script type="text/template">
+
+                        ## Executive Summary
+
+                        - Revenue: **$1.2B** (+6% QoQ)
+                        - Net income: **$120M** (+8% QoQ)
+                        - Key drivers:
+                          - Fragmented growth in APAC
+                          - Cost optimizations in Ops
+
+                        ---
+
+                        ### Highlights
+
+                        1. Product A — strong adoption
+                        2. Improved latency in trading stack
+                        3. Cost reductions realized in IT
+                    </script>
+                    <aside class="notes">
+                        Walk stakeholders through the bullets: emphasise APAC
+                        growth and margin improvements.
+                    </aside>
+                </section>
+
+                <!-- Slide with animated fragments -->
+                <section>
+                    <h2>Key KPIs (animated)</h2>
+                    <ul>
+                        <li class="fragment">
+                            Revenue: <strong>$1.2B</strong>
+                        </li>
+                        <li class="fragment">EBITDA: <strong>$260M</strong></li>
+                        <li class="fragment">
+                            Net Income: <strong>$120M</strong>
+                        </li>
+                        <li class="fragment">
+                            Cash on Hand: <strong>$450M</strong>
+                        </li>
+                    </ul>
+                    <aside class="notes">
+                        Reveal each KPI step-by-step. Pause at EBITDA to explain
+                        adjustments.
+                    </aside>
+                </section>
+
+                <!-- Code sample slide with syntax highlighting -->
+                <section>
+                    <h2>Data Pipeline: Sample ETL (Python)</h2>
+                    <pre><code class="language-python"># Example: load quarterly CSVs and compute QoQ growth
+import pandas as pd
+
+df = pd.read_csv('quarterly_revenue.csv')
+df['qoq_growth'] = df['revenue'].pct_change()*100
+print(df.tail())
+</code></pre>
+                    <aside class="notes">
+                        Explain how the pipeline ensures data lineage and
+                        reproducibility.
+                    </aside>
+                </section>
+
+                <!-- Mathematical equations slide -->
+                <section>
+                    <h2>Financial Math</h2>
+                    <p>
+                        Present the Net Present Value (NPV) formula and
+                        Discounted Cash Flow approximation:
+                    </p>
+                    <p>$$\mathrm{NPV}=\sum_{t=0}^{T}\frac{C_t}{(1+r)^t}$$</p>
+                    <p>Weighted Average Cost of Capital (WACC):</p>
+                    <p>
+                        $$\mathrm{WACC}=\frac{E}{V}R_e+\frac{D}{V}R_d(1-T_c)$$
+                    </p>
+                    <aside class="notes">
+                        Use these to justify discount rates in DCF sensitivity
+                        slide coming next.
+                    </aside>
+                </section>
+
+                <!-- Slide: DCF sensitivity (fragments for animation) -->
+                <section>
+                    <h2>DCF Sensitivity</h2>
+                    <p class="fragment">Base case WACC = 8.5%</p>
+                    <p class="fragment">
+                        Upside scenario WACC = 7.5% → NPV increase of ~12%
+                    </p>
+                    <p class="fragment">
+                        Downside scenario WACC = 10% → NPV decrease of ~15%
+                    </p>
+                    <aside class="notes">
+                        Click through each fragment showing sensitivity ranges
+                        and the chart on the corresponding dashboard.
+                    </aside>
+                </section>
+
+                <!-- Slide with deployment instructions for GitHub Pages and GitHub Actions YAML (code block) -->
+                <section>
+                    <h2>Publish to GitHub Pages</h2>
+                    <ol>
+                        <li class="fragment">
+                            Create a GitHub repo (if not already).
+                        </li>
+                        <li class="fragment">
+                            Add `reveal_presentation.html` to the repo root (or
+                            `docs/` folder).
+                        </li>
+                        <li class="fragment">
+                            Enable GitHub Pages from `gh-pages` branch or
+                            `docs/` folder.
+                        </li>
+                        <li class="fragment">
+                            Optionally use GitHub Actions for automatic
+                            deployment.
+                        </li>
+                    </ol>
+
+                    <h3>
+                        Action (optional) &mdash; .github/workflows/gh-pages.yml
+                    </h3>
+                    <pre><code class="language-yaml">name: Deploy RevealJS to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: ./
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1
+</code></pre>
+
+                    <aside class="notes">
+                        Show quick demo: push to main and GH Actions will
+                        publish. If using `docs/`, set Pages source to `docs/`.
+                    </aside>
+                </section>
+
+                <!-- Slide with README snippet and email shown again -->
+                <section>
+                    <h2>Repository README (example)</h2>
+                    <pre><code class="language-markdown"># Quarterly Earnings — Interactive RevealJS
+
+This repo contains the interactive Reveal.js presentation used for the Q3 earnings review.
+
+Contact: 24f2002446@ds.study.iitm.ac.in
+
+To preview locally:
+
+```bash
+python3 -m http.server 8000
+# open http://localhost:8000/reveal_presentation.html
+```
+</code></pre>
+                    <aside class="notes">
+                        Remind stakeholders how to preview locally and who to
+                        contact.
+                    </aside>
+                </section>
+
+                <!-- Closing slide -->
+                <section>
+                    <h2>Questions & Next Steps</h2>
+                    <ul>
+                        <li class="fragment">
+                            Deep dive with Finance team next Tuesday
+                        </li>
+                        <li class="fragment">
+                            Publish final deck to investor portal
+                        </li>
+                        <li class="fragment">
+                            Circulate the annotated notebook
+                        </li>
+                    </ul>
+                    <p class="small-note">
+                        Contact: 24f2002446@ds.study.iitm.ac.in
+                    </p>
+                    <aside class="notes">
+                        Thank audience and open Q&A. Offer to email slide deck
+                        links after session.
+                    </aside>
+                </section>
+            </div>
+        </div>
+
+        <!-- Scripts (Reveal + plugins) -->
+        <script src="https://unpkg.com/reveal.js@4.5.0/dist/reveal.js"></script>
+        <script src="https://unpkg.com/reveal.js@4.5.0/plugin/markdown/markdown.esm.js"></script>
+        <script src="https://unpkg.com/reveal.js@4.5.0/plugin/highlight/highlight.esm.js"></script>
+        <script src="https://unpkg.com/reveal.js@4.5.0/plugin/notes/notes.esm.js"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <!-- MathJax for equations -->
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+        <script>
+            // Initialize Reveal with plugins
+            Reveal.initialize({
+                hash: true,
+                plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+                slideNumber: true,
+                math: {
+                    // MathJax config is loaded via the external script
+                    mathjax: true,
+                },
+            });
+        </script>
+    </body>
+</html>
