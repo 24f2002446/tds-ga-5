@@ -110,7 +110,8 @@ O(f(n)) & f(n) > n^{\log_b a}
 $$
 
 ---
-<!-- backgroundColor: orange -->
+
+<!-- _backgroundColor: orange -->
 
 # Code Example
 
